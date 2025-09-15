@@ -1,0 +1,47 @@
+Tetris Booth Project - Session Log (Prompts, Issues, and Modifications)
+
+1) Initial request
+- Prompt: Build a complete web-based Tetris game using Phaser 3 as a plain static website (no npm/bundlers). Include start form (name/phone), Tetris gameplay with score/level, game over with submit to leaderboard, persistent leaderboard via localStorage, responsive UI, minimal assets, and a README.
+- Action: Created files: index.html, style.css, main.js, scenes/StartScene.js, scenes/GameScene.js, scenes/GameOverScene.js, scenes/LeaderboardScene.js. Phaser 3 loaded via CDN. Added DOM overlay for Start form and on-screen touch controls.
+
+2) Issue: Game did not start when clicking Start
+- Symptom: Clicking Start on the form did not transition into the game.
+- Root cause: Start button had a click handler that called preventDefault() which blocked the form submit and scene change.
+- Fix: Removed the preventDefault() click handler from Start button.
+- File edited: scenes/StartScene.js (removed startButton.addEventListener('click', (e) => e.preventDefault());)
+
+3) Request: Submitting score to leaderboard and showing data
+- Prompt: After game over, submit score and show in leaderboard; persist in localStorage.
+- Enhancement: Added pagination and Refresh to leaderboard so it can display all scores and reload from localStorage without reloading the page.
+- Files edited: scenes/LeaderboardScene.js (pagination, refresh, renderList()), scenes/GameOverScene.js (submit navigates to leaderboard immediately).
+
+4) Issue: Leaderboard did not update in Chrome
+- Symptom: Submitting score did not appear in leaderboard in Chrome.
+- Root cause: Destructuring methods from window.TetrisShared (readLeaderboard/writeLeaderboard/maskPhone/addLeaderboardRow) caused lost 'this' context for some browsers/environments.
+- Fix: Stop destructuring; reference methods and fields via a shared API object (const API = window.TetrisShared; then API.readLeaderboard(), API.writeLeaderboard(), etc.).
+- Files edited: scenes/GameOverScene.js, scenes/LeaderboardScene.js.
+
+5) Request: Remove Clear button from leaderboard
+- Prompt: Remove the 'Clear leaderboard' button and keep submit flow as-is.
+- Action: Removed Clear button; kept Menu button.
+- File edited: scenes/LeaderboardScene.js.
+
+6) Current behavior summary
+- Start: Form requires Name and Phone. On submit, values stored in scene registry for this session and game starts.
+- Game: Classic Tetris mechanics with score and level on-screen. Soft/Hard drop scoring and line-clear scoring implemented. Pause supported. Touch controls for mobile.
+- Game Over: Shows final score, name, and masked phone; 'Submit score to Leaderboard' saves to localStorage and navigates to the leaderboard.
+- Leaderboard: Displays scores sorted by highest first, supports Prev/Next paging and Refresh to re-read localStorage. No Clear button. Phone numbers are masked.
+- Running: Open index.html directly or use a simple static server (e.g., VS Code Live Server). No npm required.
+
+7) Files of interest
+- index.html: Includes Phaser CDN and scripts in order; contains DOM overlays.
+- style.css: Minimal styling and responsive touch controls.
+- main.js: Phaser config and shared utilities (masking and localStorage helpers) in window.TetrisShared.
+- scenes/StartScene.js: Start overlay and scene transition.
+- scenes/GameScene.js: Core Tetris logic, UI, input, and scoring.
+- scenes/GameOverScene.js: Shows score and submits to leaderboard then navigates to leaderboard.
+- scenes/LeaderboardScene.js: Reads from localStorage; renders with paging and refresh.
+- README.txt: How to run and controls.
+
+End of log.
+

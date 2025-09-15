@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phaser 3 Tetris - Booth Edition</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Phaser 3 via CDN (no build tools required) -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+  </head>
+  <body>
+    <!-- Start Form Overlay (DOM) -->
+    <div id="start-overlay" class="overlay visible">
+      <div class="card">
+        <h1>Tetris</h1>
+        <p>Please enter your details to play.</p>
+        <form id="start-form">
+          <label for="playerName">Name</label>
+          <input
+            id="playerName"
+            name="playerName"
+            type="text"
+            maxlength="40"
+            required
+          />
+
+          <label for="playerPhone">Phone Number</label>
+          <input
+            id="playerPhone"
+            name="playerPhone"
+            type="tel"
+            inputmode="tel"
+            maxlength="24"
+            required
+          />
+
+          <button id="start-submit" type="submit">Start Game</button>
+        </form>
+        <button id="view-leaderboard" class="link">View Leaderboard</button>
+        <p class="note">
+          Runs offline. No data leaves this device. Phone is masked on screens.
+        </p>
+      </div>
+    </div>
+
+    <!-- Mobile Touch Controls -->
+    <div id="touch-controls" class="touch hidden">
+      <button id="btn-left" aria-label="Move Left">◀</button>
+      <button id="btn-rotate" aria-label="Rotate">⟳</button>
+      <button id="btn-right" aria-label="Move Right">▶</button>
+      <button id="btn-down" aria-label="Soft Drop">▼</button>
+      <button id="btn-pause" aria-label="Pause/Resume">⏯</button>
+    </div>
+
+    <!-- Game container (Phaser will inject the canvas here) -->
+    <div id="game"></div>
+
+    <!-- Game Scenes and Main -->
+    <script src="scenes/StartScene.js"></script>
+    <script src="scenes/GameScene.js"></script>
+    <script src="scenes/GameOverScene.js"></script>
+    <script src="scenes/LeaderboardScene.js"></script>
+    <script src="main.js"></script>
+
+    <!--
+      How to run:
+      - Option A: Double-click index.html to open in your browser.
+      - Option B: Use a static server like VS Code Live Server.
+      No npm or build tools required.
+    -->
+  </body>
+</html>
