@@ -1,187 +1,121 @@
-📘 Tetris Booth Project – Documentation
-1. Project Overview
+🎮 Tetris Booth Project
 
-Tetris Booth Project is an interactive web-based game built with Phaser 3 and designed specifically for event booths and job fairs.
-The goal was to create a fun, engaging way to attract visitors, capture leads (name & phone number), and encourage participation while ensuring smooth performance in a booth setting (offline/online).
+An interactive event-based web game built with Phaser 3.
+Designed for job fairs and booth events, this project captures leads, engages visitors, and encourages replay through a competitive leaderboard.
 
-This project combines classic gameplay mechanics (Tetris) with event-oriented features such as:
+📌 Features
 
-Lead capture form (Name + Phone Number) before playing.
+📝 Lead Capture Form – requires Name & Phone Number before playing.
 
-Game leaderboard for competitiveness and retention.
+🎮 Classic Tetris Gameplay – falling blocks, line clears, scoring, and levels.
 
-Persistent score tracking (via localStorage) during the entire event.
+📊 Leaderboard – scores are saved in localStorage, sorted by high score, and persist across sessions.
 
-Responsive UI and touch controls for mobile booth participants.
+🔒 Privacy-Safe – phone numbers are masked (e.g., *******123).
 
-2. Objectives for an Event-Based Game
+📱 Responsive & Mobile Ready – with touch controls for booth visitors.
 
-When building for an event booth, the requirements are different from a normal web game:
+🚀 No npm required – runs directly in browser via Phaser CDN.
 
-Lead Generation
-
-Collect player name and phone number before they can start.
-
-Store data alongside scores for later retrieval/analysis.
-
-Mask sensitive phone details when displaying publicly for privacy.
-
-Engagement
-
-Use a familiar, addictive game (Tetris) to keep visitors playing longer.
-
-Add a leaderboard to spark competition among attendees.
-
-Provide real-time score updates and replayability.
-
-Booth Performance & Practicality
-
-No dependencies on npm, servers, or internet → runs directly as a static site (index.html).
-
-Local persistence (localStorage) ensures leaderboard survives refreshes or device reboots during the event.
-
-Easy deployment on multiple booth PCs with minimal setup (just open in browser).
-
-Scalability
-
-Modular scene-based architecture for easy extension (more games, branding, sponsorship banners, etc.).
-
-Can later connect to a backend API for centralized leaderboard across multiple booths.
-
-3. Technical Stack
-
-Phaser 3 (via CDN) → Game engine for rendering and mechanics.
-
-HTML5 / CSS3 → Structure and styling, responsive design for mobile & desktop.
-
-Vanilla JavaScript (modular scenes) → Core logic, input handling, utilities.
-
-localStorage API → Persistent storage of leaderboard scores during event.
-
-VS Code + Live Server → Development and local testing.
-
-4. Project Structure
+🗂 Project Structure
 tetris-booth/
-├── index.html              # Entry point; loads Phaser & scenes via CDN
-├── style.css               # Styling for overlays, forms, mobile controls
+├── index.html              # Entry point; loads Phaser & scenes
+├── style.css               # Styling for overlays, forms, and controls
 ├── main.js                 # Phaser config + shared utilities
 ├── scenes/
-│   ├── StartScene.js       # Lead capture form + transition into game
-│   ├── GameScene.js        # Core Tetris gameplay (falling blocks, scoring)
-│   ├── GameOverScene.js    # Shows final score + submit to leaderboard
-│   └── LeaderboardScene.js # Paginated leaderboard (localStorage-backed)
-└── README.txt              # Instructions for setup & running
+│   ├── StartScene.js       # Lead capture form & transition into game
+│   ├── GameScene.js        # Core Tetris mechanics
+│   ├── GameOverScene.js    # Final score + submit to leaderboard
+│   └── LeaderboardScene.js # Paginated leaderboard with refresh
+└── README.md               # Documentation (this file)
 
-5. Key Features
-🎯 Start Screen (Lead Capture)
+🚀 How to Run
 
-Collects Name and Phone Number.
+Clone the repo or download the folder.
 
-Saves values in scene registry for session.
+Open index.html directly in a browser.
 
-Prevents entry without required fields.
+Recommended: use VS Code Live Server extension to avoid localStorage issues.
 
-🎮 Gameplay (Tetris Mechanics)
+Enter Name + Phone Number → Start the game.
 
-Classic Tetris block spawning, rotation, soft/hard drops.
+Play Tetris → Submit score to the leaderboard.
 
-Scoring System:
+📖 Game Flow
 
-Line clears, drop bonuses.
+Start Screen
 
-Dynamic level progression.
+Form asks for name & phone.
 
-Pause/Resume option.
+Values stored in memory for the session.
 
-Touch Controls for mobile players.
+Gameplay
 
-🏁 Game Over Screen
+Tetris mechanics: move, rotate, soft/hard drop.
 
-Displays:
+Score increases with line clears & drops.
 
-Final Score
+Levels increase difficulty.
 
-Player Name
+Game Over
 
-Masked Phone Number (privacy safe).
+Displays final score + masked phone.
 
-Offers submission to leaderboard.
+Option to submit score.
 
-📊 Leaderboard
+Leaderboard
 
-Stores all entries in localStorage.
+Shows top scores (sorted highest first).
 
-Sorted by highest score.
+Paginated for large events.
 
-Pagination → shows scores in manageable chunks.
+Refresh button to reload from localStorage.
 
-Refresh Button → re-sync with latest localStorage.
+🛠️ Tech Stack
 
-No Clear button (removed for event fairness).
+Phaser 3 (via CDN)
 
-6. Issues & Fixes (Development Log)
+HTML5 / CSS3
 
-Issue 1: Start button blocked game launch
+Vanilla JavaScript (modular scenes)
 
-Cause: preventDefault() blocked form submission.
+localStorage API for persistence
 
-Fix: Removed preventDefault() so form data submits correctly.
+VS Code + Live Server for testing
 
-Issue 2: Leaderboard not updating in Chrome
+🐛 Issues & Fixes
 
-Cause: Destructuring TetrisShared methods lost this context.
+Game didn’t start on submit → fixed by removing preventDefault() on Start button.
 
-Fix: Use direct API reference (const API = window.TetrisShared;).
+Leaderboard not updating in Chrome → fixed by using window.TetrisShared API references instead of destructuring.
 
-Issue 3: Privacy & UX
+Privacy & UX → masked phone numbers and removed “Clear Leaderboard” button.
 
-Masked phone numbers (*******123) for public display.
+🎯 Why Event-Ready?
 
-Removed Clear Leaderboard button to prevent accidental wipes.
+✅ Lead Generation – every player provides contact info.
 
-7. How to Run
+✅ Engagement – familiar, addictive game keeps visitors around.
 
-Open index.html in a browser (Chrome/Firefox/Edge).
+✅ Competition – leaderboard motivates replay and interaction.
 
-Recommended: VS Code Live Server to avoid localStorage/file:// issues.
+✅ Offline Ready – no internet required, localStorage keeps scores safe.
 
-Fill out Name + Phone Number → Start Game.
+✅ Easy Setup – works on any booth PC by opening index.html.
 
-Play Tetris.
+🌟 Future Enhancements
 
-Submit score → View Leaderboard.
+🌐 Backend integration → centralized leaderboard across booths.
 
-8. Event-Specific Benefits
+📱 QR code rewards → link players to signup pages or offers.
 
-Lead Data Capture: Collects phone numbers in a fun, non-intrusive way.
+🎁 Prize system → giveaways for top scorers.
 
-Booth Attraction: Bright visuals + familiar game draw attention.
+📊 Analytics → track plays, unique visitors, and average scores.
 
-Engagement Loop: Competitive leaderboard encourages multiple plays.
+🎨 Branding → add sponsor logos, custom backgrounds, or themes.
 
-Data Privacy: Masking phone numbers ensures sensitive info isn’t fully exposed.
+🏆 Final Outcome
 
-Offline Ready: Works without internet; leaderboard persists via localStorage.
-
-9. Possible Future Enhancements
-
-To make the game even more powerful as a lead generation tool, future upgrades could include:
-
-Backend Integration → Store scores + player data in a central database for multiple booths or events.
-
-QR Code Generation → After game over, generate a QR with a discount link, career site, or product page.
-
-Brand Customization → Add sponsor logos, branded backgrounds, or prize banners.
-
-Prize Mechanics → Award top daily scorers with giveaways.
-
-Multi-Device Leaderboard → Sync across multiple event PCs via WebSocket/REST API.
-
-Analytics → Track number of plays, unique players, average score for reporting.
-
-10. Final Outcome
-
-The Tetris Booth Project successfully combines gameplay, lead capture, and persistent scoring into a lightweight, browser-based package.
-It is designed for simplicity, reliability, and maximum engagement at events, while also being scalable for future business/marketing needs.
-
-This makes it not only a fun booth game but also a strategic lead generation tool.
+The Tetris Booth Project merges gameplay, lead capture, and persistent scoring into a lightweight, browser-based package.
+It’s not just a game — it’s a strategic lead generation tool designed for fairs, expos, and events.
